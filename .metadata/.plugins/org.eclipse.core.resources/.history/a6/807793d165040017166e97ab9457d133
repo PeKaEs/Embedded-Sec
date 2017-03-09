@@ -1,0 +1,59 @@
+package labo1;
+import java.security.Security;
+import java.util.HashMap;
+import java.util.Map;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.bouncycastle.util.encoders.*;
+import java.security.MessageDigest;
+
+public class DigsetAndSoOn {
+
+	public static void main(String[] args) {
+	       
+
+	       String test = "Eloelsddo";
+	       //byte input[]="Eloelddo".getBytes();
+	       byte[] bSHA1Hash= hash()
+	       byte[] bSHA256Hash= hash()
+	       byte[] bSHA512Hash= hash()
+	      
+	   }
+	
+	public byte[] hash( byte[] bInput, byte bFunction){
+		
+		Security.addProvider(new BouncyCastleProvider());
+		byte[] bDigest = {0x00};
+		String sOption;
+		if (bFunction == 0x01){
+			sOption="SHA-1";
+		}
+		else if(bFunction == 0x04){
+			sOption="SHA-256";
+		}
+		else if(bFunction == 0x06){
+			sOption="SHA-512";
+		}
+		try
+	      {
+
+	            MessageDigest mdHash = MessageDigest.getInstance("SHA-1", "BC");
+	            mdHash.update(bInput);
+
+	           bDigest = mdHash.digest();
+
+	      }
+	      catch (NoSuchAlgorithmException e)
+	      {
+	            System.err.println("No such algorithm");
+	            e.printStackTrace();
+	      }
+	      catch (NoSuchProviderException e)
+	      {
+	            System.err.println("No such provider");
+	            e.printStackTrace();
+	      }
+		return bDigest;
+	}
+}

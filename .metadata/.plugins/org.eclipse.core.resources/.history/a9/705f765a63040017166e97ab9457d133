@@ -1,0 +1,32 @@
+package labo1;
+import java.security.Security;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import java.security.MessageDigest;
+
+public class DigsetAndSoOn {
+
+	public static void main(String[] args) {
+	      Security.addProvider(new BouncyCastleProvider());
+
+	      String plainString = "Plaintext Secretddddddddddddddddddddddddddddddddd";
+
+	      try
+	            {
+	      MessageDigest messageDigest = MessageDigest.getInstance("SHA-1", "BC");
+	      messageDigest.update(plainString.getBytes());
+	      byte[] hashedString = messageDigest.digest();
+	       
+	      System.out.println(hashedString);
+	     }
+	     catch(NoSuchAlgorithmException e){
+	       System.err.println("No such algorithm");
+	            e.printStackTrace();
+	     }
+	     catch(NoSuchProviderException e){
+	       System.err.println("No such provider");
+	            e.printStackTrace();
+	     }
+	    }
+}
